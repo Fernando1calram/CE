@@ -1,10 +1,9 @@
-def grados():
-    return float(input("Introduce los grados en Celsius: "))
+# Pedimos la temperatura
+temperatura = float(input("Introduce la temperatura: "))
 
-def convertir_a_fahrenheit(grados):
-    return (grados * 9/5) + 32
+# Función para convertir a Fahrenheit
+def convierte_fahrenheit(grados):
+    return (grados * (9/5) + 32)
 
-def mostrar(grados):
-    print("Los grados en Fahrenheit son: " + f'{convertir_a_fahrenheit(grados)}')
-
-mostrar(grados())
+# Llamada a la función y muestra de resultados
+print(str(temperatura) + "ºC = " + str(convierte_fahrenheit(temperatura)) + "ºF")

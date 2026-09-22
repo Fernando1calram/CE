@@ -1,24 +1,24 @@
-def precio():
-    return float(input("Introduce el precio original del articulo: "))
+# Introducimos el precio original
+precio_original = float(input("Introduce el precio original del artículo: "))
 
-def porcentaje_descuento():
-    return float(input("Introduce el porcentaje de descuento: "))
+# Introducimos el porcentaje de descuento
+porcentaje_descuento = float(input("Introduce el porcentaje de descuento: "))
 
-def calcular_descuento(precio, porcentaje_de_descuento):
-    return float(precio) - (float(precio) * (float(porcentaje_de_descuento) / 100))
-
-def muestra_resultado(porcentaje_descuento):
-    if (porcentaje_descuento == 0):
-        return "Sin descuento"
-    elif (porcentaje_descuento >= 1 and porcentaje_descuento <= 15):
-        return "Oferta"
-    elif (porcentaje_descuento >= 16 and porcentaje_descuento <= 40):
-        return "Gran oferta"
+# Función que en función del porcentaje escribe el tipo de descuento que se está aplicando
+def informa_oferta(porcentaje):
+    if(porcentaje == 0):
+        return("Sin descuento")
+    elif(porcentaje >= 1 and porcentaje <= 15):
+        return("Oferta")
+    elif(porcentaje >= 16 and porcentaje <= 40):
+        return("Gran oferta")
     else:
-        return "Liquidación"
+        return("Liquidación")
 
-def mostrar(precio, porcentaje_descuento):
-    print("El precio final es de: " + f'{calcular_descuento(precio, porcentaje_descuento)}' + " ya que el artículo tiene un/una " + 
-          f'{muestra_resultado(porcentaje_descuento)}' + " de descuento.")
+# Función que calcula el precio con el descuento aplicado
+def calcula_precio(precio, porcentaje):
+    return str(precio * (1 - porcentaje / 100))
 
-mostrar(precio(), porcentaje_descuento())
+# Llamada a las funciones
+print("El precio final es de "  + calcula_precio(precio_original,porcentaje_descuento) +
+    "€. La oferta del artículo es:  " +  informa_oferta(porcentaje_descuento))

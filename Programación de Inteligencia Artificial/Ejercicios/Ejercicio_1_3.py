@@ -1,9 +1,12 @@
-# Prueba
-def intercambio_variables():
-    a = input("Introduce el valor de a: ")
-    b = input("Introduce el valor de b: ")
-    print("Antes del intercambio: a =", a, ", b =", b)
-    a, b = b, a
-    print("Después del intercambio: a =", a, ", b =", b)
+#Introducimos los valores de a y b
+a = input("Introduce un valor para a: ")
+b = input("Introduce un valor para b: ")
 
-intercambio_variables();
+# Esribimos sus valores actuales
+print("a = " + a + " b = " + b)
+
+# Intercambiamos sus valores
+a, b = b, a
+
+# Mostramos sus nuevos valores
+print("a = " + a + " b = " + b)
