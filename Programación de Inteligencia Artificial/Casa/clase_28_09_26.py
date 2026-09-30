@@ -109,7 +109,7 @@ lista_con_dupes = [1, 2, 2, 3, 3, 4, 5]
 sin_dupes = set(lista_con_dupes)
 print(f"sin dupes: {sin_dupes}")"""
 
-a = {1, 2, 3, 4, 5}
+"""a = {1, 2, 3, 4, 5}
 b = {4, 5, 6, 7, 8}
 print(f"{a ^ b}")
 
@@ -118,4 +118,47 @@ mi_set.add(4)
 print(f"Después de add(4): {mi_set}")
 
 mi_set.discard(99)  # sin error si no existe
-print(f"Después de discard(99): {mi_set}")
+print(f"Después de discard(99): {mi_set}")"""
+
+"""numeros = [1,2,2,3,3,4,4,5]
+sin_dupes = {n for n in numeros}
+print(f"Sin dupes: {numeros}")
+
+palabra = "banana"
+unicos = {n for n in palabra}
+print(f"Unicos: {unicos}")
+
+cuadrados_set = {n ** 2 for n in range(1,11)}
+print(f"Cuadrados: {cuadrados_set}")
+
+pares_set = {n for n in range(1,21) if n % 2 == 0}
+print(f"Pares: {pares_set}")"""
+
+"""texto = "Hola mundo Python"
+print(f"{texto.upper()}")
+print(f"{texto.lower()}")
+print(f"{texto.split()}")"""
+
+"""texto2 = "Python es genial y Python es fácil"
+print(f"Python aparece {texto2.count("Python")} veces")
+print(f"Indice de genial {texto2.find("genial")}")
+print(f"Empieza con Python: {texto2.startswith("Python")}")"""
+
+"""frase = "Ana,Batista,Carlos,Daniela"
+nombres = frase.split(",")
+print(f"{nombres}")
+
+saludo = " ".join(nombres)
+print(f"Join: {saludo}")"""
+
+"""texto3 = "El perro corre rápido"
+texto4 = texto3.replace("perro", "gato")
+print(f"Replace: {texto4}")"""
+
+"""nombre = "Carlos"
+edad = 28
+altura = 1.78
+
+print(f"F-Strings: {nombre} tiene {edad} años")
+print(f"F-Strings con formato: {nombre} mide {altura:.2f} m")
+print(f"F-Strings con millares: {1000000:,} euros")"""
