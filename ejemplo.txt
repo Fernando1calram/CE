@@ -1,0 +1,11 @@
+Linea 1: Hola Mundo
+Linea 2: Python es genial
+Linea 3: Trabajando con archivos
+Linea 4: Agregada con append
+Linea 4: Agregada con append
+Linea 4: Agregada con append
+Linea 4: Agregada con append
+Linea 4: Agregada con append
+Linea 4: Agregada con append
+Linea 4: Agregada con append
+Linea 4: Agregada con append
