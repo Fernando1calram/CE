@@ -16,10 +16,12 @@ class CuentaBancaria:
     def __add__(self, other):
         return f"{self.saldo + other.saldo}€"
 
+
 cuenta_bancaria_1 = CuentaBancaria("Fernando", 100.0)
 cuenta_bancaria_2 = CuentaBancaria("Ismael", 500.0)
 
 print(cuenta_bancaria_1)
 print(cuenta_bancaria_2)
 print(cuenta_bancaria_1.__add__(cuenta_bancaria_2))
-    
+combinada = cuenta_bancaria_1 + cuenta_bancaria_2
+print(f"Combinada: {combinada}")
