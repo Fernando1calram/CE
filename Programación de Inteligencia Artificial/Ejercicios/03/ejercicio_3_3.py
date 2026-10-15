@@ -25,7 +25,7 @@ class Tienda:
         self._productos = []
 
     def __len__(self):
-        return len(self.nombre)
+        return len(self._productos)
 
     def __getitem__(self, key):
         return self._productos[key]
@@ -43,7 +43,7 @@ class Tienda:
         return f"Tienda: {self.nombre}, productos {len(self)}"
 
     def __bool__(self):
-        if self:
+        if len(self._productos) != 0:
             return True
         else:
             return False
@@ -55,13 +55,13 @@ class Tienda:
 
     def __format__(self, format_spec):
         if format_spec == "inventario":
-            productos = ", ".join(p for p in self._productos)
-            return f"{self.nombre}: {productos}"
+            productos = ", ".join(p.nombre for p in self._productos)
+            return f"[{self.nombre}]: {productos}"
         return str(self)
 
     def __add__(self, other):
-        tienda_nueva = Tienda({self.nombre + other.nombre})
-        tienda_nueva._productos = self._productos.append(other._productos)
+        tienda_nueva = Tienda(self.nombre + other.nombre)
+        tienda_nueva._productos = self._productos + other._productos
         return tienda_nueva
 
     def __enter__(self):
@@ -95,13 +95,11 @@ tienda.agregar(Producto("Laptop", 999.99, 10))
 tienda.agregar(Producto("Ratón", 19.99, 50))
 tienda.agregar(Producto("Teclado", 49.99, 0))  # stock 0
 
-
 # ── assert: __len__ ──
 print("\n--- __len__ ---")
 assert len(tienda) == 3, f"len(tienda) = {len(tienda)}, esperado 3"
 print(f"  len(tienda) = {len(tienda)}  ✓")
 
-"""
 # ── assert: __getitem__ ──
 print("\n--- __getitem__ ---")
 assert tienda[0].nombre == "Laptop", f"tienda[0].nombre = {tienda[0].nombre}"
@@ -178,4 +176,4 @@ with Tienda("Temporal") as t:
 
 print("\n" + "=" * 55)
 print("  ¡TODAS LAS PRUEBAS PASADAS!")
-print("=" * 55)"""
+print("=" * 55)
