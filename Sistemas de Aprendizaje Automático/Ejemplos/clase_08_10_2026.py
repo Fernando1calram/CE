@@ -223,7 +223,7 @@ print("Operación ejecutada: Continuación de ejecución del programa")"""
         print("Eres muy joven")"""
 
 # Ejercicio 13
-import math
+"""import math
 def calculaRaiz(num1):
     if num1 < 0:
         raise ValueError("El número no puede ser negativo")
@@ -237,4 +237,4 @@ try:
 except ValueError as ErrorDeNumeroNegativo:
     print(ErrorDeNumeroNegativo)
 
-print("Programa teminado")
+print("Programa teminado")"""
