@@ -97,7 +97,7 @@ print(temp.celsius)
 temp.celsius = -300.0"""
 
 # EJEMPLO 5
-from datetime import date
+"""from datetime import date
 
 class Empleado:
     def __init__(self, nombre: str, edad: int):
@@ -123,5 +123,4 @@ print(emp1.nombre)
 print(emp2.nombre)
 print(emp2.edad)
 
-print(Empleado.es_mayor_de_edad(emp1))
-
+print(Empleado.es_mayor_de_edad(emp1))"""
