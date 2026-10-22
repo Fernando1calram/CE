@@ -1,0 +1,12 @@
+1. Elige un problema real: Empresa de reparto: planificación de ruta
+2.  Estado inicial: 3 furgonetas en almacen y 20 paquetes que repartir
+    Estado objetivo: cumplir con el reparto de paquetes y que las furgonetas vuelvan a almacen
+    Operadores: - asignar cliente
+                - insertar cliente
+                - mover cliente
+                - invertir tramo
+    Restricciones:  - capacidad de carga de la furgoneta
+                    - horarios
+                    - ciclo de la furgoneta
+    Criterios de evaluación:    - Minimizar distancias por vehículo
+                                - Equilibrar trabajo por furgoneta
