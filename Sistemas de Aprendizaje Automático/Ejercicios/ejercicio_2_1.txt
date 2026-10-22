@@ -1,0 +1,26 @@
+- Diferencia entre programación tradicional y aprendizaje automático
++ En la programación tradicional hay un programador detrás al que le das unos datos de entrada
+que intervienen en el código que hemos hecho y generamos una respuesta con ellos. Mientras que
+en el aprendizaje automático le das al sistema ejemplos y un algoritmo descubre los patrones por 
+si mismo, el resultado será un modelo que luego se aplica a datos nuevos.
+
+- En un sistema que predice el consumo eléctrico de una vivienda, identifica las muestras,
+características y la etiqueta
++ Muestras: es cada registro con el que el modelo aprende
+  Catacterísticas: son los campos de cada muestra y que el modelo usa para predecir: hora, temperatura ...
+  Etiqueta: lo que queremos predecir: consumo energético por ejemplos
+
+- Regresión, clasificación o agrupamiento:
+- Predecir el precio de un vehículo:            + regresión
+- Determinar si una transacción es fraudulenta: + clasificación
+- Agrupar clientes por sus habitos de compra:   + agrupamiento
+- Estimar tiempo de entrega de un paquete:      + regresión
+
+- Propón un caso en el que una solución basada en reglas sea preferible a un modelo de Machine Learning
++ El calculo del IVA de una factura porque las reglas existen y son exactas, se exige un resultado 100%
+correcto, es explicable y auditable, no hay entrenamiento necesario, fácil de mantener, barato y sencillo
+
+- ¿Por qué un modelo que funciona bien con datos de entrenmamiento puede fallar con datos nuevos?
++ Porque memorizar no es lo mismo que aprender. Un modelo minimiza errores sobre datos de entrenamiento,
+pero lo que importa es su generalización, que funcione con datos que nunca ha visto. Si el modelo se queda
+en lo primero, falla en lo segundo
