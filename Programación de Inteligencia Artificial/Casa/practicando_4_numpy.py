@@ -86,7 +86,7 @@ print(f"    Dos primeras valoraciones de la segunda película: {dos_primeras_seg
 valoraciones_sobre_100 = valoraciones * 10
 
 # Cuantos años han pasado desde cada estreno hasta 2026
-anios_desde_estreno = 2026 - valoraciones
+anios_desde_estreno = 2026 - anios
 
 # Calcula la valoracion media de todas las peliculas
 valoracion_media = np.mean(valoraciones)
@@ -113,3 +113,65 @@ print(f"    Valoracion minima: {valoracion_minima}")
 
 # 5. INDEXACIÓN BOOLEANA
 
+# Máscara booleana con true si la valoración es valoracion >= 8
+peliculas_buenas = valoraciones >= 8
+
+# Máscara para obtener solo las valoraciones buenas
+valoraciones_buenas = valoraciones[peliculas_buenas]
+
+# Máscara para obtener los años de las películas buenas
+anios_peliculas_buenas = anios[peliculas_buenas]
+
+# Cuántas películas tienen valoración >= 8
+cantidad_buenas = np.sum(peliculas_buenas)
+
+assert np.array_equal(peliculas_buenas, [True, False, True, False, True, False])
+assert np.array_equal(valoraciones_buenas, [8.5,9.2,8.8])
+assert np.array_equal(anios_peliculas_buenas, [1972,2008,2021])
+assert cantidad_buenas == 3
+
+print("5. Indexación booleana ✓")
+print(f"    Máscara: {peliculas_buenas}")
+print(f"    Valoraciones buenas: {valoraciones_buenas}")
+print(f"    Años de las peliculas buenas: {anios_peliculas_buenas}")
+print(f"    Cantidad de películas buenas: {cantidad_buenas}")
+
+# 6. CONCATENAR Y DIVIDIR ARRAYS
+
+# Valoraciones de tres películas adicionales
+nuevas_valoraciones = np.array([7.7,8.1,6.8])
+
+# Años de peliculas adicionales
+nuevos_anios = np.array([2015,2018,2024])
+
+# Concatenar valoraciones y nuevas valoraciones en un único array
+todas_valoraciones = np.concatenate((valoraciones, nuevas_valoraciones))
+
+# Concatena anios y años nuevos en un único array
+todos_anios = np.concatenate((anios, nuevos_anios))
+
+# Divide todas las valoraciones en dos partes: 3 primeras películas y 3 últimas
+primeras_tres = todas_valoraciones[:3]
+ultimas_tres = todas_valoraciones[3:]
+
+# Divide todas las valoraciones en 3 partes iguales
+partes_valoraciones = np.split(todas_valoraciones, 3)
+
+# Comprobaciones
+assert len(todas_valoraciones) == 9
+assert len(todos_anios) == 9
+
+assert np.array_equal(primeras_tres, [8.5,7.0,9.2])
+assert np.array_equal(ultimas_tres, [7.7,8.1,6.8])
+
+assert len(partes_valoraciones) == 3
+assert np.array_equal(partes_valoraciones[0], [8.5, 7.0, 9.2])
+assert np.array_equal(partes_valoraciones[1], [6.5, 8.8, 5.9])
+assert np.array_equal(partes_valoraciones[2], [7.7, 8.1, 6.8])
+
+print("6. Concatenación y división ✓")
+print(f"   Todas las valoraciones: {todas_valoraciones}")
+print(f"   Todos los años: {todos_anios}")
+print(f"   Primeras tres: {primeras_tres}")
+print(f"   Últimas tres: {ultimas_tres}")
+print(f"   Partes: {partes_valoraciones}\n")
