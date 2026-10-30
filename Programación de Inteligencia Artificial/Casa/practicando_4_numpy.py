@@ -152,7 +152,7 @@ todos_anios = np.concatenate((anios, nuevos_anios))
 
 # Divide todas las valoraciones en dos partes: 3 primeras películas y 3 últimas
 primeras_tres = todas_valoraciones[:3]
-ultimas_tres = todas_valoraciones[3:]
+ultimas_tres = todas_valoraciones[-3:]
 
 # Divide todas las valoraciones en 3 partes iguales
 partes_valoraciones = np.split(todas_valoraciones, 3)
@@ -175,3 +175,7 @@ print(f"   Todos los años: {todos_anios}")
 print(f"   Primeras tres: {primeras_tres}")
 print(f"   Últimas tres: {ultimas_tres}")
 print(f"   Partes: {partes_valoraciones}\n")
+
+print("=" * 55)
+print("  ¡TODAS LAS PRUEBAS PASADAS!")
+print("=" * 55)
