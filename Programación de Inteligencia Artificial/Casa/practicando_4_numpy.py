@@ -25,12 +25,10 @@ print(f"    Actores por película: : {actores_por_pelicula}")
 
 # 2. PROPIEDADES DE LOS ARRAYS
 
-# Matriz de 2 filas y 34 columnas con valoraciones
-
+# Matriz de 2 filas y 3 columnas con valoraciones
 matriz_valoraciones = np.array([[8.5,7.0,9.2],[6.5,8.8,5.9],])
 
 # Guardamos en estas variables las propiedades de la matriz
-
 forma = matriz_valoraciones.shape
 dimensiones = matriz_valoraciones.ndim
 tamano_total = matriz_valoraciones.size
