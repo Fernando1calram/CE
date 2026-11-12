@@ -1,0 +1,9 @@
+﻿Modelo,Conjunto,MAE (kWh)
+Gradient Boosting,7 variables,75.46352499463545
+Regresión lineal,7 variables,75.47239346869173
+Random Forest,7 variables,79.57051918158568
+Regresión lineal,4 variables,82.83986380203875
+Gradient Boosting,4 variables,83.04885692936556
+Random Forest,4 variables,95.45675501473359
+Árbol de decisión,7 variables,108.57297898365395
+Árbol de decisión,4 variables,117.4947876631755
