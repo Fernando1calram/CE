@@ -1,20 +1,25 @@
-# Importamos la librería correspondiente para poder leer el archivo .csv
 import csv
 import numpy as np
 
-COLUMNAS_NUMERICAS = ["temperatura","vibracion","consumo","presion"]
+
+COLUMNAS_NUMERICAS = ["temperatura", "vibracion", "consumo", "presion"]
 COLUMNAS = ["id"] + COLUMNAS_NUMERICAS + ["estado"]
+
 RANGOS_VALIDOS = {
-    "temperatura": (0.0,150.0),
-    "vibracion": (0.0,15.0),
-    "consumo": (0.0,65.0),
-    "presion": (0.0,12.0),
+    "temperatura": (0.0, 150.0),
+    "vibracion": (0.0, 15.0),
+    "consumo": (0.0, 65.0),
+    "presion": (0.0, 12.0)
 }
 
-# Carga del archivo
-def cargar_datos():
+
+def cargar_datos(ruta_csv):
+    """
+    Carga el CSV y devuelve los identificadores, las variables
+    predictoras y la variable objetivo en arrays de NumPy.
+    """
     try:
-        with open(".\\datos\\sensores.csv", "r", encoding="utf-8") as archivo:
+        with open(ruta_csv, mode="r", encoding="utf-8") as archivo:
             lector = csv.DictReader(archivo)
 
             ids = []
@@ -22,91 +27,133 @@ def cargar_datos():
             estados = []
 
             for registro in lector:
-
                 ids.append(registro["id"])
-                estados.append(float(registro["estado"]))
-                fila = []
+
+                # Validamos el estado antes de convertirlo a entero
+                # para no aceptar accidentalmente valores como 1.5.
+                estado = float(registro["estado"])
+
+                if estado != 0 and estado != 1 and estado != 2:
+                    raise ValueError(
+                        "La variable estado contiene un valor no válido."
+                    )
+
+                estados.append(int(estado))
+                fila_numerica = []
+
                 for columna in COLUMNAS_NUMERICAS:
-                    texto = registro[columna].strip()
+                    texto = registro[columna]
+
+                    if texto is None:
+                        raise ValueError(
+                            "Un registro tiene menos campos de los esperados."
+                        )
+
+                    texto = texto.strip()
+
+                    # Representamos los campos vacíos mediante NaN.
                     if texto == "":
-                        fila.append(np.nan)
+                        fila_numerica.append(np.nan)
                     else:
                         try:
-                            fila.append(float(texto))
+                            fila_numerica.append(float(texto))
                         except ValueError:
-                            fila.append(np.nan)
-                valores.append(fila)
+                            # Un texto no numérico se marca para su tratamiento.
+                            fila_numerica.append(np.nan)
 
-                # Convertimos las listas en arrays de Numpy
-                x = np.array(valores, dtype=float)
-                y = np.array(estados, dtype=int)
-                ids = np.array(ids)
+                valores.append(fila_numerica)
 
-                # Comprobamos que los datos se han cargado correctamente
-                if(x.shape[1] != len(COLUMNAS_NUMERICAS)):
-                    raise ValueError("El número de columnas numéricas no coincide con el esperado")
+        # Comprobamos que hay datos antes de consultar las dimensiones.
+        if len(valores) == 0:
+            raise ValueError("El archivo CSV no contiene registros.")
 
-                if(x.shape[0] != y.shape[0] or x.shape[0] != ids.shape[0]):
-                    raise ValueError("El número de registros de x, y e ids no coinciden")
+        ids = np.array(ids)
 
-                print(ids)
-                print(x)
-                print(y)
-                return ids, x, y
-        
+        # APARTADO 4: Separar las variables predictoras de la variable objetivo.
+        X = np.array(valores, dtype=float)
+        y = np.array(estados, dtype=int)
+
+        if X.shape[1] != len(COLUMNAS_NUMERICAS):
+            raise ValueError(
+                "El número de variables predictoras no es el esperado."
+            )
+
+        if X.shape[0] != y.shape[0] or X.shape[0] != ids.shape[0]:
+            raise ValueError(
+                "El número de registros de X, y e ids no coincide."
+            )
+
+        return ids, X, y
+
     except FileNotFoundError:
-        raise FileNotFoundError("No se ha encontrado el archivo de sensores")
+        raise FileNotFoundError(
+            f"No se ha encontrado el archivo: {ruta_csv}"
+        )
 
     except KeyError as error:
-        raise ValueError("Falta una columna esperada en el .csv")
+        raise ValueError(
+            f"Falta una columna esperada en el CSV: {error}"
+        )
 
-def explorar_datos(ids, x, y):
 
-    print(f"Numero total de registros: {x.shape[0]}")
-    print(f"Numero total de variables predictoras: {x.shape[1]}")
-    print(f"Dimensiones de x: {x.shape}")
-    print(f"Dimensiones de y: {y.shape}")
+def explorar_datos(ids, X, y):
+    """Muestra la exploración inicial del conjunto de datos."""
+    print("\n=== APARTADO 1: CARGA Y EXPLORACIÓN ===")
+
+    # APARTADO 1: Obtener las dimensiones del conjunto de datos.
+    print("\nNúmero total de registros:", X.shape[0])
+    print("Número de variables predictoras:", X.shape[1])
+    print("Dimensiones de X:", X.shape)
+    print("Dimensiones de y:", y.shape)
+
+    # APARTADO 1: Identificar las variables disponibles.
+    print("\nVariables disponibles:")
+
     for columna in COLUMNAS:
-        print(columna)
+        print("-", columna)
 
-    # Muestra de datos
-    print(f"Muestra de datos")
-    print(x[:5])
-    print(ids[:5])
-    print(y[:5])
+    # APARTADO 1: Mostrar una muestra de los registros.
+    print("\nPrimeros cinco registros:")
+    print("id | temperatura | vibracion | consumo | presion | estado")
 
-    # Tipos de datos
-    print(f"Tipos de datos")
-    print(f"{x.dtype}")
-    print(f"{ids.dtype}")
-    print(f"{y.dtype}")
+    numero_muestras = min(5, X.shape[0])
 
-    # Valores ausentes
-    print(f"Valores ausentes")
-    valores_ausentes = np.isnan(x)
-    total_ausentes = np.sum(valores_ausentes)
+    for indice in range(numero_muestras):
+        print(ids[indice], X[indice], y[indice])
 
-    print(f"Total ausencias:  {total_ausentes}")
+    # APARTADO 1: Comprobar los tipos de datos.
+    print("\nTipos de datos:")
+    print("Identificadores:", ids.dtype)
+    print("Variables predictoras:", X.dtype)
+    print("Variable objetivo:", y.dtype)
 
-    # Valores ausentes por variable
-    print(f"Valores ausentes por variables")
-    for indice, columna in enumerate(COLUMNAS_NUMERICAS):
-        cantidad = np.sum(valores_ausentes[:, indice])
-        porcentaje = (cantidad / x.shape[0]) * 100
-        print(f"{columna}: {cantidad} {porcentaje: .2f} %")
+    # APARTADO 1: Identificar los valores ausentes.
+    ausentes = np.isnan(X)
 
-    # Número de registros por categoría
-    print(f"Registros por categoría")
+    print("\nNúmero total de valores ausentes:", np.sum(ausentes))
+    print("Valores ausentes por variable:")
+
+    for indice in range(len(COLUMNAS_NUMERICAS)):
+        cantidad = np.sum(ausentes[:, indice])
+        porcentaje = cantidad / X.shape[0] * 100
+
+        print(
+            f"- {COLUMNAS_NUMERICAS[indice]}: "
+            f"{cantidad} ({porcentaje:.2f} %)"
+        )
+
+    # APARTADO 1: Calcular el número de registros correspondientes
+    # a cada categoría.
     categorias, recuentos = np.unique(y, return_counts=True)
-    for categoria, recuento in zip(categorias, recuentos):
-        porcentaje = (recuento / y.shape[0]) * 100
-        print(f"Estado: {int(categoria)}: {recuento} registros ({porcentaje:.2f} %)")
 
-    # Comprobación de que el archivo está correctamente cargado
-    if x.shape[0] == 0:
-        raise ValueError("El archivo .csv no contiene registros")
+    print("\nRegistros por categoría:")
 
-    if not np.all(np.isin(y, [0,1,2])):
-        raise ValueError("La variable estado contiene valores no válidos")
+    for indice in range(len(categorias)):
+        porcentaje = recuentos[indice] / len(y) * 100
 
-    print("Datos cargados correctamente")
+        print(
+            f"- Estado {categorias[indice]}: "
+            f"{recuentos[indice]} registros ({porcentaje:.2f} %)"
+        )
+
+    print("\nLa carga de los datos se ha completado correctamente.")
