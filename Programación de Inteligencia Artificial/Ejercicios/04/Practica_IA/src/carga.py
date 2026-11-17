@@ -145,6 +145,9 @@ def explorar_datos(ids, X, y):
     # APARTADO 1: Calcular el número de registros correspondientes
     # a cada categoría.
     categorias, recuentos = np.unique(y, return_counts=True)
+    print("y",y)
+    print("categorias",categorias)
+    print("recuentos",recuentos)
 
     print("\nRegistros por categoría:")
 

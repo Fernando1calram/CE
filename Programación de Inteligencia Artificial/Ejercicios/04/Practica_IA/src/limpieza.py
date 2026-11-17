@@ -123,9 +123,7 @@ def limpiar_datos(X):
     # y establecer un procedimiento para tratarlos.
     ausentes = identificar_ausentes(X)
     registros_con_ausentes = np.sum(ausentes, axis=1) > 0
-
-    # Los valores ausentes de los registros conservados se imputarán
-    # con la mediana de su variable.
+    print("Registros con ausentes: ", registros_con_ausentes)
 
     # APARTADO 2: Detectar mediciones que se encuentren fuera de
     # los rangos físicos admisibles de los sensores.
@@ -135,6 +133,7 @@ def limpiar_datos(X):
     # deban descartarse o corregirse.
     problemas = ausentes | fuera_rango
     numero_problemas = np.sum(problemas, axis=1)
+    print("Problemas", numero_problemas)
 
     # Es una decisión de diseño: descartamos filas con al menos
     # dos variables problemáticas y corregimos las que tienen una.
@@ -144,6 +143,7 @@ def limpiar_datos(X):
 
     mascara_valida = ~registros_descartados
     X_preparado = X[mascara_valida].copy()
+    print("x prep", X_preparado)
 
     if X_preparado.shape[0] == 0:
         raise ValueError("No quedan registros después del descarte.")
@@ -153,15 +153,19 @@ def limpiar_datos(X):
     fuera_rango_conservados = fuera_rango[mascara_valida]
     X_preparado[fuera_rango_conservados] = np.nan
 
+    # Los valores ausentes de los registros conservados se imputarán
+    # con la mediana de su variable.
     medianas = calcular_medianas(X_preparado)
+    print("\nMedianas: ", medianas)
     X_limpio = imputar_valores(X_preparado, medianas)
+    print("\nX limpio: ", X_limpio)
 
     # APARTADO 2: Identificar posibles valores atípicos mediante
     # técnicas estadísticas.
     atipicos = detectar_atipicos_iqr(X_limpio)
 
     # APARTADO 2: Diferenciar entre errores de medición y observaciones
-    # extremas que puedan representar situaciones reales de funcionamiento anómalo.
+    # extremas que puedan representar situaciones reales de funcionamiento anómalo. (153,154)
     # Los valores fuera de los límites físicos se corrigen.
     # Los atípicos estadísticos dentro de los límites se conservan:
     # el criterio IQR no demuestra que una medición sea un error.
