@@ -80,12 +80,6 @@ def mostrar_conclusiones(accuracy, informe):
         "\n- Analizar las consecuencias de cada tipo de error."
     )
 
-    print(
-        "\nEl programa cubre el procesamiento y la clasificación básica. "
-        "Los resultados deben interpretarse antes de considerar "
-        "cualquier uso industrial."
-    )
-
 
 def main():
     print("=== PRÁCTICA SENSORES - FERNANDO CALLES RAMOS ===")

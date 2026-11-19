@@ -21,6 +21,7 @@ def dividir_estratificado(X, y, proporcion_entrenamiento=0.8):
     # en ambas particiones.
     for estado in [0, 1, 2]:
         indices_clase = np.arange(len(y))[y == estado]
+        print("indicesclase",indices_clase)
 
         if len(indices_clase) < 2:
             raise ValueError(
