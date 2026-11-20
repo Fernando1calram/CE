@@ -1,3 +1,5 @@
+import os
+
 from src.carga import cargar_datos, explorar_datos
 
 from src.limpieza import (
@@ -21,6 +23,13 @@ from src.clasificador import (
 from src.evaluacion import (
     mostrar_evaluacion,
     analizar_resultados
+)
+
+from src.graficos import (
+    crear_carpeta_graficos,
+    grafico_distribucion_estados,
+    grafico_metricas_por_estado,
+    grafico_matriz_confusion
 )
 
 
@@ -186,8 +195,48 @@ def main():
     )
 
     analizar_resultados(matriz, clases, metricas)
-    mostrar_conclusiones(accuracy, informe)
 
+    # APARTADO 7: Generación de gráficos
+    ruta_graficos = os.path.join("resultados", "graficos")
+    crear_carpeta_graficos(ruta_graficos)
+
+    grafico_distribucion_estados(
+        y_limpio,
+        os.path.join(ruta_graficos, "distribucion_estados.png")
+    )
+
+    grafico_matriz_confusion(
+        matriz,
+        os.path.join(ruta_graficos, "matriz_confusion.png")
+    )
+
+    precisiones = [
+        metricas[0]["precision"],
+        metricas[1]["precision"],
+        metricas[2]["precision"]
+    ]
+
+    recalls = [
+        metricas[0]["recall"],
+        metricas[1]["recall"],
+        metricas[2]["recall"]
+    ]
+
+    f1_scores = [
+        metricas[0]["f1"],
+        metricas[1]["f1"],
+        metricas[2]["f1"]
+    ]
+
+    grafico_metricas_por_estado(
+        matriz,
+        precisiones,
+        recalls,
+        f1_scores,
+        os.path.join(ruta_graficos, "metricas_por_estado.png")
+    )
+
+    print("\nGráficos generados en:", ruta_graficos)
 
 if __name__ == "__main__":
     try:
