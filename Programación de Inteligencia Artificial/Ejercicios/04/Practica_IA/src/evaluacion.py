@@ -10,6 +10,8 @@ NOMBRES_ESTADOS = {
 
 def matriz_confusion(y_real, y_predicho):
     """Construye la matriz de confusión de las tres categorías."""
+    print("Y real", y_real)
+    print("Y predicho", y_predicho)
     if len(y_real) == 0:
         raise ValueError("No hay observaciones para evaluar.")
 
